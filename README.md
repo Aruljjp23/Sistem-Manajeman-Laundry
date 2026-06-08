@@ -1,58 +1,204 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🧺 Sistem Laundry REST API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistem Laundry berbasis **REST API** yang dibangun menggunakan **Laravel 13** dan **Laravel Sanctum**.
 
-## About Laravel
+Aplikasi ini menerapkan sistem **Authentication**, **Role-Based Access Control (RBAC)** dengan tingkatan hak akses untuk **Admin** dan **Kasir**, manajemen relasi database, kalkulasi kembalian otomatis, perubahan status pesanan otomatis, hingga pencetakan struk pembayaran dalam format PDF.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+# 📂 Dokumen Pengumpulan & Pengujian
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+* **Laporan Pengujian Aplikasi**
+* **Postman Collection:** `Laundry-App API (Fixed).postman_collection.json`
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+# 🛠️ Fitur Utama & Hak Akses (RBAC)
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 👑 Admin
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+* Memiliki semua hak akses yang dimiliki oleh **Kasir**.
+* **Menghapus Data Pesanan** — Memiliki otorisasi penuh untuk menghapus data dari database.
+* **Menghapus Data Transaksi** — Dapat menghapus riwayat transaksi pembayaran lama.
 
-## Agentic Development
+## 💼 Kasir
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+### Authentication
+
+* Registrasi akun baru
+* Login
+* Logout
+* Melihat profil user yang sedang aktif
+
+### Manajemen Pesanan
+
+* Membuat data pesanan baru
+* Melihat daftar pesanan
+* Melihat detail pesanan
+* Memperbarui informasi pesanan
+
+### Alur Status Laundry
+
+* Mengubah status pengerjaan pesanan laundry
+
+### Manajemen Transaksi
+
+* Melakukan input pembayaran
+* Melihat riwayat transaksi
+* Menghitung uang kembalian secara otomatis
+* Melihat detail transaksi berdasarkan pesanan tertentu
+
+---
+
+# 🚀 Panduan Instalasi Projek
+
+Ikuti langkah-langkah berikut untuk menjalankan proyek ini di lingkungan lokal Anda.
+
+## 1. Clone Repository
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone <url-repository-anda>
+cd laundry-app
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+## 2. Install Dependency
 
-## Contributing
+```bash
+composer install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 3. Salin Konfigurasi Environment
 
-## Code of Conduct
+### Windows (CMD / PowerShell)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```cmd
+copy .env.example .env
+```
 
-## Security Vulnerabilities
+### Linux / macOS
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+cp .env.example .env
+```
 
-## License
+## 4. Generate Application Key
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+php artisan key:generate
+```
+
+## 5. Konfigurasi Database
+
+Buka file `.env`, lalu sesuaikan konfigurasi database berikut:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=laundry_db
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+## 6. Jalankan Migration & Seeder
+
+```bash
+php artisan migrate --seed
+```
+
+## 7. Jalankan Server Lokal
+
+```bash
+php artisan serve
+```
+
+Server akan berjalan pada:
+
+```text
+http://127.0.0.1:8000
+```
+
+---
+
+# 🛣️ Dokumentasi Endpoint API
+
+> 💡 **Catatan Pengujian**
+>
+> Pastikan menambahkan header berikut pada Postman:
+>
+> ```http
+> Accept: application/json
+> ```
+>
+> Agar Laravel selalu mengembalikan respons JSON ketika terjadi error validasi.
+
+---
+
+# 🔑 1. Authentication Route
+
+| Method | Endpoint        | Akses  | Keterangan                                      |
+| ------ | --------------- | ------ | ----------------------------------------------- |
+| POST   | `/api/register` | Publik | Mendaftarkan akun kasir/admin baru              |
+| POST   | `/api/login`    | Publik | Autentikasi akun untuk mendapatkan Bearer Token |
+| POST   | `/api/logout`   | Token  | Menghapus token aktif dan keluar dari sistem    |
+| GET    | `/api/user`     | Token  | Mengambil profil user yang sedang login         |
+
+---
+
+# 👕 2. Manajemen Pesanan (Sanctum Protected)
+
+| Method      | Endpoint                   | Akses         | Keterangan                                 |
+| ----------- | -------------------------- | ------------- | ------------------------------------------ |
+| GET         | `/api/pesanan`             | Kasir & Admin | Menampilkan seluruh daftar pesanan laundry |
+| POST        | `/api/pesanan`             | Kasir & Admin | Membuat data pesanan baru                  |
+| GET         | `/api/pesanan/{id}`        | Kasir & Admin | Melihat detail satu pesanan                |
+| PUT / PATCH | `/api/pesanan/{id}`        | Kasir & Admin | Memperbarui data pesanan                   |
+| PATCH       | `/api/pesanan/{id}/status` | Kasir & Admin | Mengubah status progress laundry           |
+| DELETE      | `/api/pesanan/{id}`        | Admin Only    | Menghapus data pesanan                     |
+
+---
+
+# 💵 3. Manajemen Transaksi (Sanctum Protected)
+
+| Method | Endpoint                              | Akses         | Keterangan                                                               |
+| ------ | ------------------------------------- | ------------- | ------------------------------------------------------------------------ |
+| GET    | `/api/transaksi`                      | Kasir & Admin | Melihat seluruh riwayat transaksi                                        |
+| POST   | `/api/transaksi`                      | Kasir & Admin | Membuat transaksi baru (otomatis hitung kembalian & ubah status pesanan) |
+| GET    | `/api/transaksi/{id}`                 | Kasir & Admin | Melihat detail transaksi                                                 |
+| GET    | `/api/pesanan/{pesanan_id}/transaksi` | Kasir & Admin | Mencari transaksi berdasarkan ID pesanan                                 |
+| DELETE | `/api/transaksi/{id}`                 | Admin Only    | Menghapus riwayat transaksi                                              |
+
+---
+
+# 📂 Struktur Kode Penting
+
+```text
+app/
+├── Http/
+│   ├── Controllers/
+│   │   ├── AuthController.php
+│   │   ├── PesananController.php
+│   │   └── TransaksiController.php
+│   │       # Mengatur logika REST API & Web Render sekaligus
+│   │
+│   └── Requests/
+│       └── TransaksiStoreRequest.php
+│           # Validasi input transaksi dari sisi server
+│
+├── Models/
+│   ├── User.php
+│   │   # Representasi tabel user & RBAC (Role)
+│   │
+│   ├── Pesanan.php
+│   │   # Model Pesanan (Relasi HasOne/HasMany ke Transaksi)
+│   │
+│   └── Transaksi.php
+│       # Model Transaksi (Relasi BelongsTo ke Pesanan)
+│
+database/
+├── migrations/
+│   # Struktur blueprint tabel database laundry
+│
+└── seeders/
+    # Data awal pengujian (User Admin & Kasir)
+```
