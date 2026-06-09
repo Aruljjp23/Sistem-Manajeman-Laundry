@@ -88,8 +88,7 @@ Server akan berjalan di http://127.0.0.1:8000.
 Untuk melakukan pengujian endpoint, Anda dapat meng-import file Collection Postman (.json) yang telah disertakan di dalam folder pengumpulan ini ke dalam aplikasi Postman Anda.
 
 * **Dokumen Pengumpulan & Pengujian:**
-  * Laporan Pengujian Aplikasi
-  * Postman Collection
+    * Postman Collection [text](<Laundry-App API test.postman_collection.json>)
 
 ### Hasil Pengujian API (Postman Screenshots)
 
