@@ -95,35 +95,37 @@ Untuk melakukan pengujian endpoint, Anda dapat meng-import file Collection Postm
 
 **1. Autentikasi & Pengguna (Authentication & User)**
 1. **Register**
-  ![alt text](Register.png)
+  ![alt text](Dokumentasi_Postman/Register.png)
 2. **Login**
-   ![alt text](Login.png)
+   ![alt text](Dokumentasi_Postman/Login.png)
 3. **Get User**
-   ![alt text](<Get Use.png>)
+   ![alt text](<Dokumentasi_Postman/Get Use.png>)
 
 **2. Pesanan (Orders)**
 4. **Membuat pesanan**
-  ![alt text](<Membuat pesanan.png>)
+  ![alt text](<Dokumentasi_Postman/Membuat pesanan.png>)
+  
 5. **Lihat semua pesanan**
-  ![alt text](<Lihat semua pesanan.png>)
+  ![alt text](<Dokumentasi_Postman/Lihat semua pesanan.png>)
+
 6. **Detail pesanan**
-   ![alt text](<Detail pesanan.png>)
+   ![alt text](<Dokumentasi_Postman/Detail pesanan.png>)
 7. **Update pesanan**
-   ![alt text](<Update pesanan.png>)
+   ![alt text](<Dokumentasi_Postman/Update pesanan.png>)
 
 **3. Transaksi / Pembayaran (Transactions)**
 8. **Membuat transaksi pesanan**
-   ![alt text](<Membuat transaksi pesanan.png>)
+   ![alt text](<Dokumentasi_Postman/Membuat transaksi pesanan.png>)
 9. **Transaksi berdasarkan id pesanan**
-   ![alt text](<Transaksi berdasarka pesanan.png>)
+   ![alt text](<Dokumentasi_Postman/Transaksi berdasarka pesanan.png>)
 10. **Lihat semua transaksi**
-    ![alt text](<Lihat semua transaksi.png>)
+    ![alt text](<Dokumentasi_Postman/Lihat semua transaksi.png>)
 11. **Detail transaksi**
-   ![alt text](<Detai transaksi.png>)
+   ![alt text](<Dokumentasi_Postman/Detai transaksi.png>)
 
 **4. Selesai (Logout)**
 12. **Logout**
-    ![alt text](Logout.png)
+    ![alt text](Dokumentasi_Postman/Logout.png)
 
 ---
 
