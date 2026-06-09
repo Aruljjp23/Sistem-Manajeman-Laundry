@@ -91,9 +91,8 @@ Untuk melakukan pengujian endpoint, Anda dapat meng-import file Collection Postm
   * Laporan Pengujian Aplikasi
   * Postman Collection
 
-### 📸 Hasil Pengujian API (Postman Screenshots)
+### Hasil Pengujian API (Postman Screenshots)
 
-**1. Autentikasi & Pengguna (Authentication & User)**
 1. **Register**
   ![alt text](Dokumentasi_Postman/Register.png)
 2. **Login**
@@ -101,7 +100,6 @@ Untuk melakukan pengujian endpoint, Anda dapat meng-import file Collection Postm
 3. **Get User**
    ![alt text](<Dokumentasi_Postman/Get Use.png>)
 
-**2. Pesanan (Orders)**
 4. **Membuat pesanan**
   ![alt text](<Dokumentasi_Postman/Membuat pesanan.png>)
   
@@ -112,8 +110,6 @@ Untuk melakukan pengujian endpoint, Anda dapat meng-import file Collection Postm
    ![alt text](<Dokumentasi_Postman/Detail pesanan.png>)
 7. **Update pesanan**
    ![alt text](<Dokumentasi_Postman/Update pesanan.png>)
-
-**3. Transaksi / Pembayaran (Transactions)**
 8. **Membuat transaksi pesanan**
    ![alt text](<Dokumentasi_Postman/Membuat transaksi pesanan.png>)
 9. **Transaksi berdasarkan id pesanan**
@@ -122,8 +118,6 @@ Untuk melakukan pengujian endpoint, Anda dapat meng-import file Collection Postm
     ![alt text](<Dokumentasi_Postman/Lihat semua transaksi.png>)
 11. **Detail transaksi**
    ![alt text](<Dokumentasi_Postman/Detai transaksi.png>)
-
-**4. Selesai (Logout)**
 12. **Logout**
     ![alt text](Dokumentasi_Postman/Logout.png)
 
