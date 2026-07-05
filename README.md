@@ -1,16 +1,8 @@
-# UTS Sistem Laundry REST API
+# Sistem Manajemen Laundry
 
 Project ini adalah Sistem Laundry berbasis **REST API** yang dibangun menggunakan **Laravel 13** dan **Laravel Sanctum**. Project ini ditujukan untuk memenuhi tugas Ujian Tengah Semester (UTS).
 
 Aplikasi ini menerapkan sistem **Authentication**, **Role-Based Access Control (RBAC)** dengan tingkatan hak akses untuk **Admin** dan **Kasir**, manajemen relasi database, kalkulasi kembalian otomatis, perubahan status pesanan otomatis, hingga pencetakan struk pembayaran dalam format PDF.
-
----
-
-## Identitas
-* **Nama:** Varid Firmansyah
-* **NIM:** 2305101020
-* **Kelas:** 6B
-* **Tugas:** UTS WEB full stack
 
 ---
 
