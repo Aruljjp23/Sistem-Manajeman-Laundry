@@ -48,7 +48,7 @@ Buka file `.env` di text editor, lalu sesuaikan konfigurasi koneksi database ber
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=laundry_db
+DB_DATABASE=laundry
 DB_USERNAME=root
 DB_PASSWORD=
 ```
@@ -114,7 +114,7 @@ Untuk melakukan pengujian endpoint, Anda dapat meng-import file Collection Postm
 
 ---
 
-## LAPORAN TUGAS UTS: SISTEM LAUNDRY REST API
+## SISTEM MANAJEMEN LAUNDRY REST API
 
 ### 1. Fitur Utama & Hak Akses (RBAC)
 **Admin:**
