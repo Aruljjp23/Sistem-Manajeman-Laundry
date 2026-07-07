@@ -1,55 +1,59 @@
-<x-guest-layout>
-    <div class="mb-4 text-sm text-gray-600">
-        {{ __('This is a secure area of the application. Please confirm your password before continuing.') }}
+@extends('layouts.auth')
+
+@section('title', 'Konfirmasi Password - Laundry App')
+
+@section('content')
+
+    {{-- Brand --}}
+    <div class="auth-brand">
+        <div class="auth-brand-icon" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9);">
+            <i class="bi bi-shield-check"></i>
+        </div>
+        <h2>Konfirmasi Password</h2>
+        <p>Ini adalah area aman. Silakan konfirmasi password Anda sebelum melanjutkan.</p>
     </div>
 
-    <form method="POST" action="{{ route('password.confirm') }}">
+    {{-- Validation Errors --}}
+    @if ($errors->any())
+        <div class="auth-alert auth-alert-danger">
+            <i class="bi bi-exclamation-circle me-1"></i>
+            @foreach ($errors->all() as $error)
+                {{ $error }}@if (!$loop->last)<br>@endif
+            @endforeach
+        </div>
+    @endif
+
+    <form method="POST" action="{{ route('password.confirm') }}" data-loading>
         @csrf
 
-        <!-- Password -->
-        <div>
-            <x-input-label for="password" :value="__('Password')" />
-
-            <div style="position: relative; margin-top: 0.5rem;">
-                <x-text-input id="password" class="block w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="current-password"
-                                style="padding-right: 40px;" />
-                <button type="button" onclick="togglePasswordConfirm()" 
-                        style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: #6b7280; padding: 5px 8px;">
-                    <i class="bi bi-eye" id="confirmPasswordIcon" style="font-size: 18px;"></i>
+        {{-- PASSWORD --}}
+        <div class="mb-4">
+            <label for="password" class="form-label">
+                <i class="bi bi-lock me-1"></i>Password
+            </label>
+            <div class="password-wrapper">
+                <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    class="form-control form-control-password @error('password') is-invalid @enderror"
+                    placeholder="Masukkan password Anda"
+                    required
+                    autocomplete="current-password"
+                >
+                <button type="button" class="password-toggle" onclick="togglePassword('password', 'confirmPwdIcon')">
+                    <i class="bi bi-eye" id="confirmPwdIcon"></i>
                 </button>
             </div>
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            @error('password')
+                <div class="invalid-feedback d-block">{{ $message }}</div>
+            @enderror
         </div>
 
-        <div class="flex justify-end mt-4">
-            <x-primary-button>
-                {{ __('Confirm') }}
-            </x-primary-button>
-        </div>
+        {{-- BUTTON --}}
+        <button type="submit" class="btn btn-auth-primary">
+            <i class="bi bi-check-circle me-1"></i>Konfirmasi
+        </button>
     </form>
 
-    <style>
-        @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css');
-    </style>
-
-    <script>
-        function togglePasswordConfirm() {
-            const passwordInput = document.getElementById('password');
-            const passwordIcon = document.getElementById('confirmPasswordIcon');
-            
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                passwordIcon.classList.remove('bi-eye');
-                passwordIcon.classList.add('bi-eye-slash');
-            } else {
-                passwordInput.type = 'password';
-                passwordIcon.classList.remove('bi-eye-slash');
-                passwordIcon.classList.add('bi-eye');
-            }
-        }
-    </script>
-</x-guest-layout>
+@endsection

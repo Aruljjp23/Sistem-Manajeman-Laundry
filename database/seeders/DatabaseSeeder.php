@@ -15,12 +15,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // Akun Admin Default
+        User::create([
+            'name' => 'Administrator',
+            'email' => 'admin@gmail.com',
+            'password' => bcrypt('admin123'),
             'role' => 'admin',
+            'email_verified_at' => now(), // Verifikasi otomatis
+        ]);
+
+        // Akun Kasir Default
+        User::create([
+            'name' => 'Kasir 1',
+            'email' => 'kasir1@gmail.com',
+            'password' => bcrypt('kasir123'),
+            'role' => 'kasir',
+            'email_verified_at' => now(), // Verifikasi otomatis
         ]);
     }
 }
