@@ -29,10 +29,6 @@ Route::get('/register', function () {
     return redirect('/register');
 });
 
-Route::get('/password', function () {
-    return redirect('/password');
-});
-
 // Route::get('/password', function () {
 //     return redirect('/password');
 // });
