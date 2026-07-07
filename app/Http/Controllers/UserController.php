@@ -39,12 +39,14 @@ class UserController extends Controller
             'role' => ['required', Rule::in(['admin', 'kasir'])],
         ]);
 
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => $request->role,
         ]);
+
+        $user->markEmailAsVerified();
 
         return redirect()
             ->route('users.index')

@@ -25,17 +25,7 @@ Route::post(
 Route::get('/', function () {
     return redirect('/login');
 });
-Route::get('/register', function () {
-    return redirect('/register');
-});
-
-Route::get('/password', function () {
-    return redirect('/password');
-});
-
-// Route::get('/password', function () {
-//     return redirect('/password');
-// });
+// Register & password routes are handled by auth.php
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])

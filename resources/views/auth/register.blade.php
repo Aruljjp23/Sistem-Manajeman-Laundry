@@ -1,144 +1,196 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - Laundry App</title>
+@extends('layouts.auth')
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+@section('title', 'Daftar - Laundry App')
 
-    <style>
-        body{
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            height:100vh;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            font-family: Arial;
-        }
+@section('content')
 
-        .card-auth{
-            width:400px;
-            background:white;
-            padding:30px;
-            border-radius:15px;
-            box-shadow:0 10px 30px rgba(0,0,0,.3);
-        }
+    {{-- Brand --}}
+    <div class="auth-brand">
+        <div class="auth-brand-icon">
+            <i class="bi bi-person-plus"></i>
+        </div>
+        <h2>Buat Akun Baru</h2>
+        <p>Daftar untuk mulai menggunakan Laundry App</p>
+    </div>
 
-        .btn-primary{
-            width:100%;
-            border-radius:10px;
-        }
+    {{-- Validation Errors --}}
+    @if ($errors->any())
+        <div class="auth-alert auth-alert-danger">
+            <i class="bi bi-exclamation-circle me-1"></i>
+            @foreach ($errors->all() as $error)
+                {{ $error }}@if (!$loop->last)<br>@endif
+            @endforeach
+        </div>
+    @endif
 
-        .password-input-group {
-            position: relative;
-        }
-
-        .password-toggle-btn {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #6c757d;
-            padding: 5px 8px;
-        }
-
-        .password-toggle-btn:hover {
-            color: #0d6efd;
-        }
-
-        .form-control-password {
-            padding-right: 40px;
-        }
-    </style>
-</head>
-<body>
-
-<div class="card-auth">
-
-    <h3 class="text-center mb-3">Register</h3>
-
-    <form method="POST" action="{{ route('register') }}">
+    <form method="POST" action="{{ route('register') }}" data-loading>
         @csrf
 
+        {{-- NAMA --}}
         <div class="mb-3">
-            <label>Nama</label>
-            <input type="text" name="name" class="form-control" required>
+            <label for="name" class="form-label">
+                <i class="bi bi-person me-1"></i>Nama Lengkap
+            </label>
+            <input
+                type="text"
+                name="name"
+                id="name"
+                class="form-control @error('name') is-invalid @enderror"
+                value="{{ old('name') }}"
+                placeholder="Masukkan nama lengkap"
+                required
+                autofocus
+                autocomplete="name"
+            >
+            @error('name')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
 
+        {{-- EMAIL --}}
         <div class="mb-3">
-            <label>Email</label>
-            <input type="email" name="email" class="form-control" required>
+            <label for="email" class="form-label">
+                <i class="bi bi-envelope me-1"></i>Email
+            </label>
+            <input
+                type="email"
+                name="email"
+                id="email"
+                class="form-control @error('email') is-invalid @enderror"
+                value="{{ old('email') }}"
+                placeholder="nama@email.com"
+                required
+                autocomplete="username"
+            >
+            @error('email')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
 
+        {{-- PASSWORD --}}
         <div class="mb-3">
-            <label>Password</label>
-            <div class="password-input-group">
-                <input type="password" name="password" class="form-control form-control-password" id="registerPassword" required>
-                <button type="button" class="password-toggle-btn" onclick="togglePasswordRegister()">
+            <label for="registerPassword" class="form-label">
+                <i class="bi bi-lock me-1"></i>Password
+            </label>
+            <div class="password-wrapper">
+                <input
+                    type="password"
+                    name="password"
+                    id="registerPassword"
+                    class="form-control form-control-password @error('password') is-invalid @enderror"
+                    placeholder="Minimal 8 karakter"
+                    required
+                    autocomplete="new-password"
+                    oninput="updatePasswordStrength(this.value)"
+                >
+                <button type="button" class="password-toggle" onclick="togglePassword('registerPassword', 'registerPasswordIcon')">
                     <i class="bi bi-eye" id="registerPasswordIcon"></i>
                 </button>
             </div>
-        </div>
+            @error('password')
+                <div class="invalid-feedback d-block">{{ $message }}</div>
+            @enderror
 
-        <div class="mb-3">
-            <label>Konfirmasi Password</label>
-            <div class="password-input-group">
-                <input type="password" name="password_confirmation" class="form-control form-control-password" id="confirmPassword" required>
-                <button type="button" class="password-toggle-btn" onclick="togglePasswordConfirm()">
-                    <i class="bi bi-eye" id="confirmPasswordIcon"></i>
-                </button>
+            {{-- Password Strength Indicator --}}
+            <div class="password-strength" id="passwordStrengthContainer" style="display: none;">
+                <div class="password-strength-bar">
+                    <div class="password-strength-fill" id="passwordStrengthFill"></div>
+                </div>
+                <div class="password-strength-text" id="passwordStrengthText"></div>
             </div>
         </div>
 
-        <button type="submit" class="btn btn-primary">
-            Register
-        </button>
+        {{-- KONFIRMASI PASSWORD --}}
+        <div class="mb-4">
+            <label for="confirmPassword" class="form-label">
+                <i class="bi bi-lock-fill me-1"></i>Konfirmasi Password
+            </label>
+            <div class="password-wrapper">
+                <input
+                    type="password"
+                    name="password_confirmation"
+                    id="confirmPassword"
+                    class="form-control form-control-password @error('password_confirmation') is-invalid @enderror"
+                    placeholder="Ulangi password"
+                    required
+                    autocomplete="new-password"
+                    oninput="checkPasswordMatch()"
+                >
+                <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword', 'confirmPasswordIcon')">
+                    <i class="bi bi-eye" id="confirmPasswordIcon"></i>
+                </button>
+            </div>
+            @error('password_confirmation')
+                <div class="invalid-feedback d-block">{{ $message }}</div>
+            @enderror
+            <div id="passwordMatchFeedback" class="mt-1" style="font-size: 0.75rem; display: none;"></div>
+        </div>
 
+        {{-- BUTTON --}}
+        <button type="submit" class="btn btn-auth-primary" id="registerBtn">
+            <i class="bi bi-person-plus me-1"></i>Daftar
+        </button>
     </form>
 
-    <p class="text-center mt-3">
-        Sudah punya akun?
-        <a href="{{ route('login') }}">Login</a>
-    </p>
+    {{-- Login Link --}}
+    <div class="auth-footer">
+        <p>
+            Sudah punya akun?
+            <a href="{{ route('login') }}" class="auth-link">Masuk di sini</a>
+        </p>
+    </div>
 
-</div>
+@endsection
 
+@section('scripts')
 <script>
-    function togglePasswordRegister() {
-        const passwordInput = document.getElementById('registerPassword');
-        const passwordIcon = document.getElementById('registerPasswordIcon');
-        
-        if (passwordInput.type === 'password') {
-            passwordInput.type = 'text';
-            passwordIcon.classList.remove('bi-eye');
-            passwordIcon.classList.add('bi-eye-slash');
-        } else {
-            passwordInput.type = 'password';
-            passwordIcon.classList.remove('bi-eye-slash');
-            passwordIcon.classList.add('bi-eye');
+    // Password strength indicator
+    function updatePasswordStrength(password) {
+        const container = document.getElementById('passwordStrengthContainer');
+        const fill = document.getElementById('passwordStrengthFill');
+        const text = document.getElementById('passwordStrengthText');
+
+        if (password.length === 0) {
+            container.style.display = 'none';
+            return;
         }
+
+        container.style.display = 'block';
+        const strength = checkPasswordStrength(password);
+
+        // Remove all strength classes
+        fill.className = 'password-strength-fill';
+        fill.classList.add(strength.class);
+        text.textContent = 'Kekuatan: ' + strength.text;
+        text.style.color = strength.color;
+
+        // Also check match if confirm field has value
+        checkPasswordMatch();
     }
 
-    function togglePasswordConfirm() {
-        const passwordInput = document.getElementById('confirmPassword');
-        const passwordIcon = document.getElementById('confirmPasswordIcon');
-        
-        if (passwordInput.type === 'password') {
-            passwordInput.type = 'text';
-            passwordIcon.classList.remove('bi-eye');
-            passwordIcon.classList.add('bi-eye-slash');
+    // Real-time password match checker
+    function checkPasswordMatch() {
+        const password = document.getElementById('registerPassword').value;
+        const confirm = document.getElementById('confirmPassword').value;
+        const feedback = document.getElementById('passwordMatchFeedback');
+
+        if (confirm.length === 0) {
+            feedback.style.display = 'none';
+            return;
+        }
+
+        feedback.style.display = 'block';
+
+        if (password === confirm) {
+            feedback.innerHTML = '<i class="bi bi-check-circle me-1"></i>Password cocok';
+            feedback.style.color = '#22c55e';
+            document.getElementById('confirmPassword').classList.remove('is-invalid');
+            document.getElementById('confirmPassword').style.borderColor = '#22c55e';
         } else {
-            passwordInput.type = 'password';
-            passwordIcon.classList.remove('bi-eye-slash');
-            passwordIcon.classList.add('bi-eye');
+            feedback.innerHTML = '<i class="bi bi-x-circle me-1"></i>Password tidak cocok';
+            feedback.style.color = '#ef4444';
+            document.getElementById('confirmPassword').style.borderColor = '#ef4444';
         }
     }
 </script>
-
-</body>
-</html>
+@endsection
