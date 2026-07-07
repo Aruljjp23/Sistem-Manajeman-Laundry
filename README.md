@@ -1,4 +1,4 @@
-# Sistem Manajemen Laundry
+# Sistem Manajemen Laundry 1
 
 Project ini adalah Sistem Laundry berbasis **REST API** yang dibangun menggunakan **Laravel 13** dan **Laravel Sanctum**. Project ini ditujukan untuk memenuhi tugas Ujian Tengah Semester (UTS).
 
