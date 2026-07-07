@@ -25,9 +25,9 @@ Route::post(
 Route::get('/', function () {
     return redirect('/login');
 });
-// Route::get('/register', function () {
-//     return redirect('/register');
-// });
+Route::get('/register', function () {
+    return redirect('/register');
+});
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])
