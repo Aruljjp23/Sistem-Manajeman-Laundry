@@ -15,20 +15,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
+        // Akun Admin Default
         User::create([
-            'name' => 'Admin Laundry',
+            'name' => 'Administrator',
             'email' => 'admin@gmail.com',
             'password' => bcrypt('admin123'),
             'role' => 'admin',
+            'email_verified_at' => now(),
         ]);
 
+        // Akun Kasir Default
         User::create([
-            'name' => 'Kasir Laundry',
+            'name' => 'Kasir 1',
             'email' => 'kasir1@gmail.com',
             'password' => bcrypt('kasir123'),
             'role' => 'kasir',
+            'email_verified_at' => now(),
         ]);
     }
 }

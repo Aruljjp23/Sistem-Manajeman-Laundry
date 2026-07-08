@@ -25,9 +25,7 @@ Route::post(
 Route::get('/', function () {
     return redirect('/login');
 });
-Route::get('/register', function () {
-    return redirect('/register');
-});
+// Register & password routes are handled by auth.php
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth'])

@@ -1,98 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Laundry App</title>
+@extends('layouts.auth')
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+@section('title', 'Login - Laundry App')
 
-    <style>
+@section('content')
 
-        body{
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            height:100vh;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            font-family: Arial;
-        }
-
-        .login-card{
-            width:380px;
-            background:white;
-            border-radius:15px;
-            padding:30px;
-            box-shadow:0 10px 30px rgba(0,0,0,.3);
-        }
-
-        .login-title{
-            text-align:center;
-            margin-bottom:20px;
-        }
-
-        .login-title h2{
-            margin:0;
-            font-weight:bold;
-            color:#1e293b;
-        }
-
-        .form-control{
-            border-radius:10px;
-            padding:10px;
-        }
-
-        .btn-login{
-            width:100%;
-            border-radius:10px;
-            padding:10px;
-            background:#1e293b;
-            color:white;
-            font-weight:bold;
-        }
-
-        .btn-login:hover{
-            background:#0f172a;
-        }
-
-        .password-input-group {
-            position: relative;
-        }
-
-        .password-toggle-btn {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #6c757d;
-            padding: 5px 8px;
-        }
-
-        .password-toggle-btn:hover {
-            color: #1e293b;
-        }
-
-        .form-control-password {
-            padding-right: 40px;
-        }
-
-    </style>
-
-</head>
-<body>
-
-<div class="login-card">
-
-    <div class="login-title">
+    {{-- Brand --}}
+    <div class="auth-brand">
+        <div class="auth-brand-icon">
+            <i class="bi bi-water"></i>
+        </div>
         <h2>Laundry App</h2>
-        <p class="text-muted">Silakan login untuk masuk</p>
+        <p>Silakan masuk ke akun Anda</p>
     </div>
 
-    <form method="POST" action="{{ route('login') }}">
+    {{-- Session Status (e.g. from password reset) --}}
+    @if (session('status'))
+        <div class="auth-alert auth-alert-success">
+            <i class="bi bi-check-circle me-1"></i>{{ session('status') }}
+        </div>
+    @endif
+
+    {{-- Validation Errors --}}
+    @if ($errors->any())
+        <div class="auth-alert auth-alert-danger">
+            <i class="bi bi-exclamation-circle me-1"></i>
+            @foreach ($errors->all() as $error)
+                {{ $error }}@if (!$loop->last)<br>@endif
+            @endforeach
+        </div>
+    @endif
+
+    <form method="POST" action="{{ route('login') }}" data-loading>
         @csrf
 
         @if ($errors->any())
@@ -107,48 +45,76 @@
 
         {{-- EMAIL --}}
         <div class="mb-3">
-            <label>Email</label>
-            <input type="email" name="email" class="form-control" required>
+            <label for="email" class="form-label">
+                <i class="bi bi-envelope me-1"></i>Email
+            </label>
+            <input
+                type="email"
+                name="email"
+                id="email"
+                class="form-control @error('email') is-invalid @enderror"
+                value="{{ old('email') }}"
+                placeholder="nama@email.com"
+                required
+                autofocus
+                autocomplete="username"
+            >
         </div>
 
         {{-- PASSWORD --}}
         <div class="mb-3">
-            <label>Password</label>
-            <div class="password-input-group">
-                <input type="password" name="password" class="form-control form-control-password" id="loginPassword" required>
-                <button type="button" class="password-toggle-btn" onclick="togglePasswordLogin()">
+            <div class="d-flex justify-content-between align-items-center">
+                <label for="loginPassword" class="form-label mb-0">
+                    <i class="bi bi-lock me-1"></i>Password
+                </label>
+                <a href="{{ route('password.request') }}" class="auth-link" style="font-size: 0.75rem;">
+                    Lupa password?
+                </a>
+            </div>
+            <div class="password-wrapper mt-1">
+                <input
+                    type="password"
+                    name="password"
+                    id="loginPassword"
+                    class="form-control form-control-password @error('password') is-invalid @enderror"
+                    placeholder="Masukkan password"
+                    required
+                    autocomplete="current-password"
+                >
+                <button type="button" class="password-toggle" onclick="togglePassword('loginPassword', 'loginPasswordIcon')">
                     <i class="bi bi-eye" id="loginPasswordIcon"></i>
                 </button>
             </div>
         </div>
 
+        {{-- REMEMBER ME --}}
+        <div class="mb-4">
+            <div class="form-check">
+                <input
+                    type="checkbox"
+                    name="remember"
+                    id="remember"
+                    class="form-check-input"
+                    {{ old('remember') ? 'checked' : '' }}
+                >
+                <label class="form-check-label" for="remember">
+                    Ingat saya
+                </label>
+            </div>
+        </div>
+
         {{-- BUTTON --}}
-        <button type="submit" class="btn btn-login">
-            Login
+        <button type="submit" class="btn btn-auth-primary">
+            <i class="bi bi-box-arrow-in-right me-1"></i>Masuk
         </button>
-
- 
-
     </form>
 
-</div>
+    {{-- Register Link --}}
+    <div class="auth-footer">
+        <p>
+            Belum punya akun?
+            <a href="{{ route('register') }}" class="auth-link">Daftar sekarang</a>
+        </p>
+    </div>
 
-<script>
-    function togglePasswordLogin() {
-        const passwordInput = document.getElementById('loginPassword');
-        const passwordIcon = document.getElementById('loginPasswordIcon');
-        
-        if (passwordInput.type === 'password') {
-            passwordInput.type = 'text';
-            passwordIcon.classList.remove('bi-eye');
-            passwordIcon.classList.add('bi-eye-slash');
-        } else {
-            passwordInput.type = 'password';
-            passwordIcon.classList.remove('bi-eye-slash');
-            passwordIcon.classList.add('bi-eye');
-        }
-    }
-</script>
-
-</body>
-</html>
+@endsection
