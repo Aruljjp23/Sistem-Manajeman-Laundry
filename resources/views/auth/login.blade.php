@@ -95,6 +95,16 @@
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
+        @if ($errors->any())
+            <div class="alert alert-danger p-2 mb-3">
+                <ul class="mb-0 list-unstyled" style="font-size: 0.9rem;">
+                    @foreach ($errors->all() as $error)
+                        <li><i class="bi bi-exclamation-circle me-1"></i> {{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         {{-- EMAIL --}}
         <div class="mb-3">
             <label>Email</label>
