@@ -58,12 +58,11 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Harga / Kg</label>
-                            <input type="number"
-                                   name="harga_perkg"
-                                   value="7000"
-                                   class="form-control"
-                                   required>
+                            <label class="form-label">Kategori Layanan</label>
+                            <select name="kategori" class="form-select" required>
+                                <option value="reguler">Reguler (Rp 7.000 / Kg)</option>
+                                <option value="ekspres">Ekspres (Rp 10.500 / Kg)</option>
+                            </select>
                         </div>
 
                         <div class="mb-3">

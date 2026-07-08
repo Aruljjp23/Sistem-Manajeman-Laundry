@@ -66,12 +66,18 @@ class PesananController extends Controller
                 'nama_pelanggan' => 'required|string|max:255',
                 'no_hp' => 'required|string|max:20',
                 'berat' => 'required|numeric|min:0.1',
-                'harga_perkg' => 'required|numeric|min:0',
+                'kategori' => 'sometimes|in:reguler,ekspres',
                 'status' => 'sometimes|in:Baru,Proses,Selesai,Diambil',
                 'tanggal_masuk' => 'sometimes|date',
             ]);
 
-            $validated['total_harga'] = $validated['berat'] * $validated['harga_perkg'];
+            $harga_reguler = 7000;
+            $kategori = $validated['kategori'] ?? 'reguler';
+            $harga_perkg = $kategori === 'ekspres' ? $harga_reguler * 1.5 : $harga_reguler;
+
+            $validated['kategori'] = $kategori;
+            $validated['harga_perkg'] = $harga_perkg;
+            $validated['total_harga'] = $validated['berat'] * $harga_perkg;
             $validated['status'] = $validated['status'] ?? 'Baru';
             $validated['tanggal_masuk'] = $validated['tanggal_masuk'] ?? now();
 
@@ -99,16 +105,21 @@ class PesananController extends Controller
                 'nama_pelanggan' => 'sometimes|string|max:255',
                 'no_hp' => 'sometimes|string|max:20',
                 'berat' => 'sometimes|numeric|min:0.1',
-                'harga_perkg' => 'sometimes|numeric|min:0',
+                'kategori' => 'sometimes|in:reguler,ekspres',
                 'status' => 'sometimes|in:Baru,Proses,Selesai,Diambil',
             ]);
 
-            if (isset($validated['berat']) && isset($validated['harga_perkg'])) {
-                $validated['total_harga'] = $validated['berat'] * $validated['harga_perkg'];
-            } elseif (isset($validated['berat'])) {
-                $validated['total_harga'] = $validated['berat'] * $pesanan->harga_perkg;
-            } elseif (isset($validated['harga_perkg'])) {
-                $validated['total_harga'] = $pesanan->berat * $validated['harga_perkg'];
+            $harga_reguler = 7000;
+            $kategori = $validated['kategori'] ?? $pesanan->kategori;
+            $harga_perkg = $kategori === 'ekspres' ? $harga_reguler * 1.5 : $harga_reguler;
+
+            $validated['kategori'] = $kategori;
+            $validated['harga_perkg'] = $harga_perkg;
+
+            if (isset($validated['berat'])) {
+                $validated['total_harga'] = $validated['berat'] * $harga_perkg;
+            } else {
+                $validated['total_harga'] = $pesanan->berat * $harga_perkg;
             }
 
             $pesanan->update($validated);

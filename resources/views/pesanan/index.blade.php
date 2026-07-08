@@ -81,6 +81,7 @@
                     <th>No HP</th> {{-- ✅ TAMBAH INI --}}
                     <th>Waktu Dibuat</th>
                     <th>Berat</th>
+                    <th>Kategori</th>
                     <th>Total</th>
                     <th>Status</th>
                     <th>Aksi</th>
@@ -100,6 +101,7 @@
                     <td>{{ $item->created_at->format('d-m-Y H:i') }}</td>
 
                     <td>{{ $item->berat }} Kg</td>
+                    <td><span class="badge {{ $item->kategori == 'ekspres' ? 'bg-danger' : 'bg-primary' }} text-capitalize">{{ $item->kategori }}</span></td>
                     <td>Rp {{ number_format($item->total_harga) }}</td>
 
                     {{-- STATUS --}}

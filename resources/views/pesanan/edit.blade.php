@@ -62,12 +62,11 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Harga / Kg</label>
-                            <input type="number"
-                                   name="harga_perkg"
-                                   value="{{ $pesanan->harga_perkg }}"
-                                   class="form-control"
-                                   required>
+                            <label class="form-label">Kategori Layanan</label>
+                            <select name="kategori" class="form-select" required>
+                                <option value="reguler" {{ $pesanan->kategori == 'reguler' ? 'selected' : '' }}>Reguler (Rp 7.000 / Kg)</option>
+                                <option value="ekspres" {{ $pesanan->kategori == 'ekspres' ? 'selected' : '' }}>Ekspres (Rp 10.500 / Kg)</option>
+                            </select>
                         </div>
 
                         <div class="mb-3">

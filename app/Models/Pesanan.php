@@ -15,6 +15,7 @@ class Pesanan extends Model
         'berat',
         'harga_perkg',
         'total_harga',
+        'kategori',
         'status',
         'tanggal_masuk'
     ];
