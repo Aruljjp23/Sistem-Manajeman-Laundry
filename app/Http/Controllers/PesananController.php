@@ -67,7 +67,12 @@ class PesananController extends Controller
     {
         $validated = $request->validated();
 
-        $validated['total_harga'] = $validated['berat'] * $validated['harga_perkg'];
+        $harga_reguler = 7000;
+        $kategori = $validated['kategori'];
+        $harga_perkg = $kategori === 'ekspres' ? $harga_reguler * 1.5 : $harga_reguler;
+
+        $validated['harga_perkg'] = $harga_perkg;
+        $validated['total_harga'] = $validated['berat'] * $harga_perkg;
         $validated['status'] = 'Baru';
 
         Pesanan::create($validated);
@@ -93,7 +98,12 @@ class PesananController extends Controller
     {
         $validated = $request->validated();
 
-        $validated['total_harga'] = $validated['berat'] * $validated['harga_perkg'];
+        $harga_reguler = 7000;
+        $kategori = $validated['kategori'];
+        $harga_perkg = $kategori === 'ekspres' ? $harga_reguler * 1.5 : $harga_reguler;
+
+        $validated['harga_perkg'] = $harga_perkg;
+        $validated['total_harga'] = $validated['berat'] * $harga_perkg;
 
         $pesanan->update($validated);
 

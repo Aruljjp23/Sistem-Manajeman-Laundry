@@ -19,7 +19,8 @@ class PesananUpdateRequest extends FormRequest
             'nama_pelanggan' => ['required', 'string', 'max:255'],
             'no_hp' => ['required', 'string', 'max:20'],
             'berat' => ['required', 'numeric', 'min:0.1'],
-            'harga_perkg' => ['required', 'integer', 'min:0'],
+            'kategori' => ['required', 'in:reguler,ekspres'],
+            'status' => ['required', 'in:Baru,Proses,Selesai,Diambil'],
         ];
     }
 }
