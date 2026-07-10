@@ -30,6 +30,13 @@
         </div>
     @endif
 
+    @if(session('success'))
+        <div class="auth-alert auth-alert-success">
+            <i class="bi bi-check-circle me-1"></i>
+            {{ session('success') }}
+        </div>
+    @endif
+
     <form method="POST" action="{{ route('login') }}" data-loading>
         @csrf
 
