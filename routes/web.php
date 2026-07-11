@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\LaporanController;
 
 Route::get(
     '/transaksi/create/{id}',
@@ -36,6 +37,14 @@ Route::resource('pesanan', PesananController::class)->middleware('auth');
 Route::get('/transaksi', [TransaksiController::class, 'index'])
     ->name('transaksi.index')
     ->middleware('auth');
+
+Route::get('/laporan', [LaporanController::class, 'index'])
+    ->name('laporan.index')
+    ->middleware(['auth', 'role:admin']);
+
+Route::get('/laporan/pdf', [LaporanController::class, 'pdf'])
+    ->name('laporan.pdf')
+    ->middleware(['auth', 'role:admin']);
 
 Route::delete('/transaksi/{transaksi}', [TransaksiController::class, 'destroy'])
     ->name('transaksi.destroy')

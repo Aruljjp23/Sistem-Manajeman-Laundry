@@ -2,6 +2,7 @@
 
 use App\Models\User;
 use App\Models\Pesanan;
+use App\Models\Transaksi;
 
 // ─── Helper untuk membuat user berdasarkan role ───────────────────────────────
 
@@ -26,6 +27,16 @@ function makePesanan(): Pesanan
         'total_harga'    => 20000,
         'status'         => 'Baru',
         'tanggal_masuk'  => now(),
+    ]);
+}
+
+function makeTransaksi(Pesanan $pesanan, $tanggalBayar = null): Transaksi
+{
+    return Transaksi::create([
+        'pesanan_id'    => $pesanan->id,
+        'bayar'         => 25000,
+        'kembalian'     => 5000,
+        'tanggal_bayar' => $tanggalBayar ?? now(),
     ]);
 }
 
@@ -61,6 +72,24 @@ test('admin bisa mengakses halaman manajemen user', function () {
 test('admin bisa mengakses halaman riwayat transaksi', function () {
     $admin = makeAdmin();
     $this->actingAs($admin)->get('/transaksi')->assertStatus(200);
+});
+
+test('admin bisa mengakses halaman laporan', function () {
+    $admin = makeAdmin();
+
+    $this->actingAs($admin)->get('/laporan')->assertStatus(200);
+});
+
+test('admin bisa mencetak laporan pdf', function () {
+    $admin = makeAdmin();
+    $pesanan = makePesanan();
+    makeTransaksi($pesanan, now()->toDateTimeString());
+
+    $response = $this->actingAs($admin)
+        ->get('/laporan/pdf?type=daily&date=' . now()->toDateString());
+
+    $response->assertStatus(200);
+    $response->assertHeader('Content-Type', 'application/pdf');
 });
 
 test('admin bisa menghapus pesanan', function () {
@@ -100,6 +129,12 @@ test('kasir bisa mengakses halaman pesanan', function () {
 test('kasir bisa mengakses halaman riwayat transaksi', function () {
     $kasir = makeKasir();
     $this->actingAs($kasir)->get('/transaksi')->assertStatus(200);
+});
+
+test('kasir dilarang mengakses halaman laporan', function () {
+    $kasir = makeKasir();
+
+    $this->actingAs($kasir)->get('/laporan')->assertStatus(403);
 });
 
 test('kasir dilarang mengakses manajemen user', function () {

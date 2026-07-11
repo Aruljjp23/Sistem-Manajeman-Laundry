@@ -157,6 +157,10 @@
         </a>
 
         @if(auth()->check() && auth()->user()->role === 'admin')
+            <a href="{{ route('laporan.index') }}" class="{{ request()->is('laporan*') ? 'active' : '' }}">
+                <i class="bi bi-graph-up-arrow"></i> Laporan
+            </a>
+
             <a href="{{ route('users.index') }}" class="{{ request()->is('users*') ? 'active' : '' }}">
                 <i class="bi bi-people"></i> Kelola User
             </a>
