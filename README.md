@@ -16,8 +16,8 @@ Aplikasi ini menerapkan sistem **Authentication**, **Role-Based Access Control (
 - **Database:** MySQL / MariaDB
 - **Library:** 
   - DataTables (Untuk fitur *search* dan *pagination* pada tabel)
-- **API:** WhatsApp API Gateway (Untuk mengirim pesan otomatis saat cucian selesai)
-
+- **API:** REST API Laporan & Statistik (Endpoint /api/dashboard dan /api/laporan untuk menyajikan ringkasan pendapatan, jumlah pesanan per status/kategori, dan laporan transaksi harian/bulanan/tahunan)
+  
 ## Fungsi dan Fitur Proyek yang Dibangun
 Sistem ini dilengkapi dengan berbagai fitur esensial, antara lain:
 1. **Manajemen Transaksi:** Pencatatan cucian masuk, input berat/jumlah satuan, pemilihan paket layanan, dan kalkulasi harga secara otomatis.
