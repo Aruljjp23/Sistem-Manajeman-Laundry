@@ -9,7 +9,6 @@ Aplikasi ini menerapkan sistem **Authentication**, **Role-Based Access Control (
 ## Bahasa Pemrograman yang Digunakan
 - **PHP** 
 - **HTML & CSS**
-- **MYSQL** 
 
 ## 🛠️ Framework, Library, API, dkk yang Digunakan
 - **Framework Web:** Laravel
