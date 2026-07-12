@@ -33,3 +33,10 @@ Sistem ini dilengkapi dengan berbagai fitur esensial, antara lain:
 - **Otomatisasi Hitungan:** Meminimalisir kesalahan (*human error*) dalam menghitung total tagihan atau kembalian.
 - **Responsif:** Dapat diakses dengan tampilan yang proporsional baik melalui PC, laptop, maupun *smartphone* atau tablet.
 
+## Kekurangan Proyek yang Dibangun (Bug/Warning)
+- **[Warning]** Sistem saat ini hanya difokuskan untuk satu outlet dan belum mendukung manajemen multi-cabang yang kompleks.
+- **[Bug]** Proses export laporan ke PDF terkadang lambat jika data melebihi 1000 baris
+- **[Bug]** Tampilan tabel sedikit terpotong jika dibuka di layar HP beresolusi sangat kecil
+
+## Foto Dokumentasi Proyek Lainnya
+
