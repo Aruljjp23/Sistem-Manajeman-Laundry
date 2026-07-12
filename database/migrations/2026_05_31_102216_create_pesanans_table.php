@@ -29,7 +29,7 @@ return new class extends Migration
                 'Diambil',
             ])->default('Baru');
 
-            $table->date('tanggal_masuk');
+            $table->dateTime('tanggal_masuk');
             $table->timestamps();
         });
     }

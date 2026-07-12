@@ -7,6 +7,7 @@ use App\Http\Requests\PesananStoreRequest;
 use App\Http\Requests\PesananUpdateRequest;
 use App\Http\Requests\PesananUpdateStatusRequest;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class PesananController extends Controller
 {
@@ -69,14 +70,19 @@ class PesananController extends Controller
 
         $harga_reguler = 7000;
         $kategori = $validated['kategori'];
-        $harga_perkg = $kategori === 'ekspres' ? $harga_reguler * 1.5 : $harga_reguler;
+
+        $harga_perkg = $kategori === 'ekspres'
+            ? $harga_reguler * 1.5
+            : $harga_reguler;
 
         $validated['harga_perkg'] = $harga_perkg;
         $validated['total_harga'] = $validated['berat'] * $harga_perkg;
         $validated['status'] = 'Baru';
 
-        Pesanan::create($validated);
+        // otomatis tanggal & waktu sekarang
+        $validated['tanggal_masuk'] = Carbon::now();
 
+        Pesanan::create($validated);
 
         return redirect()
             ->route('pesanan.index')
@@ -118,11 +124,18 @@ class PesananController extends Controller
      */
     public function updateStatus(PesananUpdateStatusRequest $request, Pesanan $pesanan)
     {
+        if ($request->status === 'Diambil') {
+            return back()->with('error', 'Status Diambil hanya dapat diubah secara otomatis.');
+        }
+
         $pesanan->update([
             'status' => $request->status,
         ]);
 
-        return redirect()->route('pesanan.index');
+        return back()->with(
+            'success',
+            'Status pesanan ' . $pesanan->kode_pesanan . ' berhasil diubah menjadi ' . $request->status
+        );
     }
 
 

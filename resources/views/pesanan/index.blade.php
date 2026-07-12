@@ -104,7 +104,6 @@
                     <td><span class="badge {{ $item->kategori == 'ekspres' ? 'bg-danger' : 'bg-primary' }} text-capitalize">{{ $item->kategori }}</span></td>
                     <td>Rp {{ number_format($item->total_harga) }}</td>
 
-                    {{-- STATUS --}}
                     <td>
                         <form action="{{ route('pesanan.updateStatus', $item->id) }}" method="POST">
                             @csrf
@@ -112,39 +111,55 @@
                             <select name="status"
                                     onchange="this.form.submit()"
                                     class="form-select form-select-sm"
-                                    style="width:120px;">
+                                    style="width:120px;"
+                                    {{ $item->status == 'Diambil' ? 'disabled' : '' }}>
 
                                 <option value="Baru" {{ $item->status == 'Baru' ? 'selected' : '' }}>Baru</option>
+
                                 <option value="Proses" {{ $item->status == 'Proses' ? 'selected' : '' }}>Proses</option>
+
                                 <option value="Selesai" {{ $item->status == 'Selesai' ? 'selected' : '' }}>Selesai</option>
-                                <option value="Diambil" {{ $item->status == 'Diambil' ? 'selected' : '' }}>Diambil</option>
+
+                                <option value="Diambil" {{ $item->status == 'Diambil' ? 'selected' : '' }} disabled>Diambil</option>
 
                             </select>
-
                         </form>
                     </td>
 
-                    {{-- AKSI --}}
-                    <td>
-                        <a href="{{ route('pesanan.edit', $item->id) }}" class="btn btn-warning btn-sm">
-                            Edit
-                        </a>
+                   <td>
+                        <div class="d-flex flex-wrap align-items-center gap-2">
 
-                        <a href="{{ route('transaksi.create', $item->id) }}" class="btn btn-success btn-sm">
-                            Bayar
-                        </a>
+                            @if($item->status == 'Diambil')
 
-                        @if(auth()->user()->role === 'admin')
-                        <form action="{{ route('pesanan.destroy', $item->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
+                                <span class="badge bg-success px-3 py-2">
+                                    Diambil
+                                </span>
 
-                            <button class="btn btn-danger btn-sm"
-                                    onclick="return confirm('Hapus data ini?')">
-                                Hapus
-                            </button>
-                        </form>
-                        @endif
+                            @else
+
+                                <a href="{{ route('pesanan.edit', $item->id) }}" class="btn btn-warning btn-sm">
+                                    Edit
+                                </a>
+
+                                @if(!$item->transaksi)
+                                    <a href="{{ route('transaksi.create', $item->id) }}" class="btn btn-success btn-sm">
+                                        Bayar
+                                    </a>
+                                @endif
+
+                            @endif
+
+                            @if(auth()->user()->role === 'admin')
+                                <form action="{{ route('pesanan.destroy', $item->id) }}" method="POST" class="m-0">
+                                    @csrf
+                                    <button class="btn btn-danger btn-sm"
+                                            onclick="return confirm('Hapus data ini?')">
+                                        Hapus
+                                    </button>
+                                </form>
+                            @endif
+
+                        </div>
                     </td>
 
                 </tr>

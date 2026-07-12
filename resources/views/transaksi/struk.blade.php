@@ -50,8 +50,8 @@
         }
 
         @media print {
-            button {
-                display: none;
+            .no-print {
+                display: none !important; 
             }
         }
     </style>
@@ -105,9 +105,14 @@
 
 <br>
 
-<button onclick="window.print()" style="padding:8px 12px;">
-    Print Struk
-</button>
+@if(!isset($pdf))
+<div style="margin-top:15px; text-align:center;">
+    <a href="{{ route('pesanan.index') }}"
+       class="btn btn-secondary">
+        Kembali
+    </a>
+</div>
+@endif
 
 </body>
 </html>

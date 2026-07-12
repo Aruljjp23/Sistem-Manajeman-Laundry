@@ -117,17 +117,14 @@ class TransaksiController extends Controller
 
     public function struk($id)
     {
-        $transaksi = Transaksi::with('pesanan')
-                        ->findOrFail($id);
+        $transaksi = Transaksi::with('pesanan')->findOrFail($id);
 
-        $pdf = Pdf::loadView(
-            'transaksi.struk',
-            compact('transaksi')
-        );
+        $pdf = Pdf::loadView('transaksi.struk', [
+            'transaksi' => $transaksi,
+            'pdf' => true,
+        ]);
 
-        return $pdf->stream(
-            'struk-laundry.pdf'
-        );
+        return $pdf->stream('struk-laundry.pdf');
     }
 
     /**

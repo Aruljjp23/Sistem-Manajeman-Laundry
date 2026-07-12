@@ -66,11 +66,13 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Tanggal Masuk</label>
-                            <input type="date"
-                                   name="tanggal_masuk"
-                                   class="form-control"
-                                   required>
+                            <label class="form-label">Tanggal & Waktu Masuk</label>
+
+                            <input type="datetime-local"
+                                name="tanggal_masuk"
+                                class="form-control"
+                                value="{{ now()->format('Y-m-d\TH:i') }}"
+                                readonly>
                         </div>
 
                         <div class="d-flex gap-2">

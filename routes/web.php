@@ -3,62 +3,40 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\DashboardController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LaporanController;
-
-Route::get(
-    '/transaksi/create/{id}',
-    [TransaksiController::class, 'create']
-)->name('transaksi.create');
-
-Route::get(
-    '/transaksi/struk/{id}',
-    [TransaksiController::class, 'struk']
-)->name('transaksi.struk');
-
-Route::post(
-    '/transaksi/store',
-    [TransaksiController::class, 'store']
-)->name('transaksi.store');
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect('/login');
 });
-// Register & password routes are handled by auth.php
-
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware(['auth'])
-    ->name('dashboard');
-
-Route::resource('pesanan', PesananController::class)->middleware('auth');
-
-Route::get('/transaksi', [TransaksiController::class, 'index'])
-    ->name('transaksi.index')
-    ->middleware('auth');
-
-Route::get('/laporan', [LaporanController::class, 'index'])
-    ->name('laporan.index')
-    ->middleware(['auth', 'role:admin']);
-
-Route::get('/laporan/pdf', [LaporanController::class, 'pdf'])
-    ->name('laporan.pdf')
-    ->middleware(['auth', 'role:admin']);
-
-Route::delete('/transaksi/{transaksi}', [TransaksiController::class, 'destroy'])
-    ->name('transaksi.destroy')
-    ->middleware('auth');
-
-Route::resource('users', UserController::class)->middleware(['auth', 'role:admin']);
 
 Route::middleware('auth')->group(function () {
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+
+    Route::resource('pesanan', PesananController::class);
+    
+    Route::post('/pesanan/{pesanan}/status', [PesananController::class, 'updateStatus'])->name('pesanan.updateStatus');
+
+    Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi.index');
+    Route::get('/transaksi/create/{id}', [TransaksiController::class, 'create'])->name('transaksi.create');
+    Route::post('/transaksi/store', [TransaksiController::class, 'store'])->name('transaksi.store');
+    Route::get('/transaksi/struk/{id}', [TransaksiController::class, 'struk'])->name('transaksi.struk');
+    Route::delete('/transaksi/{transaksi}', [TransaksiController::class, 'destroy'])->name('transaksi.destroy');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
-Route::post('/pesanan/{pesanan}/status', [PesananController::class, 'updateStatus'])
-    ->name('pesanan.updateStatus');
+    Route::middleware('role:admin')->group(function () {
+        Route::resource('users', UserController::class);
+        Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
+        Route::get('/laporan/pdf', [LaporanController::class, 'pdf'])->name('laporan.pdf');
+    });
+
+});
 
 require __DIR__.'/auth.php';
