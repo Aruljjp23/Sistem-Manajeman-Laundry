@@ -42,7 +42,7 @@ Sistem ini dilengkapi dengan berbagai fitur esensial, antara lain:
 ### Screenshot Tampilan Aplikasi
 
 ### tampilan register
-![alt text](<gambar/Screenshot 2026-07-12 210454.png>)
+![alt text](<Screenshot 2026-07-12 210454.png>)
 
 ### tampilan gambar login
 ![alt text](<Screenshot 2026-07-12 210536.png>)
