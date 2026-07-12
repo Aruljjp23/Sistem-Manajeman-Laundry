@@ -1,56 +1,38 @@
 # Sistem Manajemen Laundry 
 
-Project ini adalah Sistem Laundry berbasis **REST API** yang dibangun menggunakan **Laravel 13** dan **Laravel Sanctum**. Project ini ditujukan untuk memenuhi tugas Ujian Tengah Semester (UTS).
+Project ini adalah Sistem Laundry berbasis **REST API** yang dibangun menggunakan **Laravel 13** dan **Laravel Sanctum**. Project ini ditujukan untuk memenuhi tugas Ujian Akhir Semester (UAS).
 
 Aplikasi ini menerapkan sistem **Authentication**, **Role-Based Access Control (RBAC)** dengan tingkatan hak akses untuk **Admin** dan **Kasir**, manajemen relasi database, kalkulasi kembalian otomatis, perubahan status pesanan otomatis, hingga pencetakan struk pembayaran dalam format PDF.
 
 ---
 
-## Persyaratan Sistem
-Sebelum menjalankan aplikasi ini, pastikan komputer/laptop sudah terinstall:
-* PHP >= 8.1
-* Composer
-* MySQL (XAMPP / Laragon)
-* Postman (untuk pengujian API)
+## 💻 Bahasa Pemrograman yang Digunakan
+- **PHP** / **JavaScript** / **Python** *(Pilih/sesuaikan dengan yang kamu gunakan)*
+- **HTML5 & CSS3** (Untuk antarmuka/UI)
+- **SQL** (Untuk pengelolaan database)
 
----
+## 🛠️ Framework, Library, API, dkk yang Digunakan
+- **Framework Web:** Laravel / CodeIgniter / Express.js *(Silakan disesuaikan)*
+- **Styling & UI:** Bootstrap / Tailwind CSS
+- **Database:** MySQL / MariaDB
+- **Library Tambahan:** DataTables (untuk tabel), Chart.js (untuk grafik laporan), SweetAlert (untuk pop-up notifikasi)
+- **API (Opsional):** WhatsApp API / gateway (Untuk mengirim notifikasi selesai ke pelanggan)
 
-## Cara Menjalankan Project (Installation Guide)
-Ikuti langkah-langkah berikut untuk menjalankan proyek ini di lingkungan lokal Anda.
+## ✨ Fungsi dan Fitur Proyek yang Dibangun
+Proyek ini menyediakan fitur-fitur esensial untuk mengelola operasional laundry:
+1. **Dashboard Informatif:** Menampilkan ringkasan pendapatan, jumlah pesanan, dan status cucian.
+2. **Manajemen Transaksi:** Pencatatan cucian masuk, pemilihan paket, input berat, dan kalkulasi total harga otomatis.
+3. **Manajemen Status Cucian:** Update status secara realtime (Baru Masuk -> Sedang Dicuci -> Sedang Disetrika -> Selesai -> Sudah Diambil).
+4. **Manajemen Pelanggan:** Database pelanggan tetap untuk memudahkan pencarian saat transaksi berikutnya.
+5. **Manajemen Paket & Harga:** Admin dapat mengubah, menambah, atau menghapus jenis layanan (Kiloan, Satuan, Selimut, dll).
+6. **Laporan Keuangan:** Fitur filter laporan pendapatan harian, bulanan, hingga tahunan yang bisa diekspor/cetak.
+7. **Cetak Struk/Nota:** Pencetakan bukti transaksi untuk diberikan kepada pelanggan.
 
-### 1. Clone Repository (Opsional)
-```bash
-git clone <url-repository-anda>
-cd laundry-app
-```
-
-### 2. Install Dependensi (Penting)
-Karena folder `vendor` mungkin tidak disertakan untuk menghemat ukuran, silakan buka Terminal/Command Prompt di dalam folder project ini, lalu jalankan perintah:
-```bash
-composer install
-```
-
-### 3. Setup Environment Variables
-Salin file `.env.example` dan ubah namanya menjadi `.env`.
-```cmd
-copy .env.example .env
-```
-Setelah itu, generate application key dengan perintah:
-```bash
-php artisan key:generate
-```
-
-### 4. Setup Database
-Buka phpMyAdmin atau HeidiSQL, lalu buat database baru (misalnya dengan nama `laundry_db`).
-
-Buka file `.env` di text editor, lalu sesuaikan konfigurasi koneksi database berikut:
-```env
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=laundry
-DB_USERNAME=root
-DB_PASSWORD=
+## 🚀 Kelebihan Proyek yang Dibangun
+- **User Friendly (Mudah Digunakan):** Desain antarmuka (UI) dibuat simpel agar kasir dan admin mudah mengoperasikannya.
+- **Otomatisasi Kalkulasi:** Meminimalisir *human error* dalam menghitung total harga tagihan pelanggan.
+- **Data Tersimpan Aman:** Menggantikan pembukuan manual menggunakan buku yang rawan hilang atau rusak.
+- **Responsif:** Tampilan dapat menyesuaikan layar perangkat, baik saat diakses lewat PC, laptop, maupun tablet/smartphone.
 ```
 
 ### 5. Jalankan Migrasi & Seeder
