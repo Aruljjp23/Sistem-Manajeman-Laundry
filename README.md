@@ -7,27 +7,23 @@ Aplikasi ini menerapkan sistem **Authentication**, **Role-Based Access Control (
 ---
 
 ## Bahasa Pemrograman yang Digunakan
-- **PHP** (Backend)
-- **JavaScript** (Interaktivitas Frontend)
-- **HTML5 & CSS3** (Struktur dan Desain Antarmuka)
-- **SQL** (Pengelolaan Database)
+- **PHP** 
+- **HTML & CSS**
+- **MYSQL** 
 
 ## 🛠️ Framework, Library, API, dkk yang Digunakan
-*(Catatan: Sesuaikan dengan tumpukan teknologi/tech stack proyekmu)*
-- **Framework Web:** Laravel / CodeIgniter / Express.js
+- **Framework Web:** Laravel
 - **Styling/UI:** Bootstrap 5 / Tailwind CSS
 - **Database:** MySQL / MariaDB
-- **Library Tambahan:** 
+- **Library:** 
   - DataTables (Untuk fitur *search* dan *pagination* pada tabel)
-  - Chart.js (Untuk visualisasi grafik laporan)
-  - SweetAlert2 (Untuk pop-up notifikasi yang menarik)
-- **API (Opsional):** WhatsApp API Gateway (Untuk mengirim pesan otomatis saat cucian selesai)
+- **API** WhatsApp API Gateway (Untuk mengirim pesan otomatis saat cucian selesai)
 
 ## Fungsi dan Fitur Proyek yang Dibangun
 Sistem ini dilengkapi dengan berbagai fitur esensial, antara lain:
 1. **Manajemen Transaksi:** Pencatatan cucian masuk, input berat/jumlah satuan, pemilihan paket layanan, dan kalkulasi harga secara otomatis.
 2. **Dashboard Interaktif:** Menampilkan ringkasan pendapatan, jumlah pesanan aktif, dan metrik bisnis lainnya.
-3. **Tracking Status Cucian:** Memantau dan mengubah status pesanan (*Antre -> Diproses -> Selesai -> Diambil*).
+3. **Tracking Status Cucian:** Memantau dan mengubah status pesanan (*Baru -> Diproses -> Selesai -> Diambil*).
 4. **Manajemen Pelanggan:** Menyimpan data pelanggan (nama, no. HP, alamat) untuk mempermudah transaksi berikutnya.
 5. **Manajemen Layanan:** Admin dapat menambah, mengubah, atau menghapus jenis paket laundry beserta harganya.
 6. **Laporan & Struk:** Fitur cetak struk pembayaran untuk pelanggan dan cetak laporan pendapatan harian/bulanan untuk pemilik.
