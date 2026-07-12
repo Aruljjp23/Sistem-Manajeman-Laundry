@@ -40,3 +40,42 @@ Sistem ini dilengkapi dengan berbagai fitur esensial, antara lain:
 ## Foto Dokumentasi Proyek Lainnya
 
 ### Screenshot Tampilan Aplikasi
+
+### tampilan register
+![alt text](<gambar/Screenshot 2026-07-12 210454.png>)
+
+### tampilan gambar login
+![alt text](<Screenshot 2026-07-12 210536.png>)
+
+### tampilan dashboard admin
+![alt text](<Screenshot 2026-07-12 212422.png>)
+
+### tampilan kelola pesanan 
+![alt text](<Screenshot 2026-07-12 212440.png>)
+
+### riwayat transaksi
+![alt text](<Screenshot 2026-07-12 212401.png>)
+
+### laporan
+![alt text](<Screenshot 2026-07-12 212508.png>)
+
+### tampilan cetak print laporan laundry
+![alt text](<Screenshot 2026-07-12 212731.png>)
+
+### kelola user
+![alt text](<Screenshot 2026-07-12 212552.png>)
+
+### Tampilan dashboard kasir
+![alt text](<Screenshot 2026-07-12 210559.png>)
+
+### tampilan kelola pesanan
+![alt text](<Screenshot 2026-07-12 211730.png>)
+
+### tampilan tambah pesanan
+![alt text](<Screenshot 2026-07-12 211836.png>)
+
+### tampilan riwayat transaksi
+![alt text](<Screenshot 2026-07-12 211855.png>)
+
+### tampilan struck
+![alt text](<Screenshot 2026-07-12 211937.png>)
