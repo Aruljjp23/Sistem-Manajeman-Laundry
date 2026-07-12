@@ -17,7 +17,7 @@ Aplikasi ini menerapkan sistem **Authentication**, **Role-Based Access Control (
 - **Database:** MySQL / MariaDB
 - **Library:** 
   - DataTables (Untuk fitur *search* dan *pagination* pada tabel)
-- **API** WhatsApp API Gateway (Untuk mengirim pesan otomatis saat cucian selesai)
+- **API:** WhatsApp API Gateway (Untuk mengirim pesan otomatis saat cucian selesai)
 
 ## Fungsi dan Fitur Proyek yang Dibangun
 Sistem ini dilengkapi dengan berbagai fitur esensial, antara lain:
