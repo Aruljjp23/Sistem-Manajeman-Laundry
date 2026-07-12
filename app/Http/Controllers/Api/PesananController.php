@@ -13,11 +13,21 @@ class PesananController extends Controller
     {
         try {
             $status = request()->get('status');
+            $kategori = request()->get('kategori');
             $search = request()->get('search');
+            $tanggalDari = request()->get('tanggal_dari');
+            $tanggalSampai = request()->get('tanggal_sampai');
+            $sortBy = request()->get('sort_by', 'tanggal_masuk');
+            $sortDir = request()->get('sort_dir', 'desc');
+
             $query = Pesanan::with('transaksi');
-            
+
             if ($status && in_array($status, ['Baru', 'Proses', 'Selesai', 'Diambil'])) {
                 $query->where('status', $status);
+            }
+
+            if ($kategori && in_array($kategori, ['reguler', 'ekspres'])) {
+                $query->where('kategori', $kategori);
             }
 
             if ($search) {
@@ -27,8 +37,22 @@ class PesananController extends Controller
                       ->orWhere('no_hp', 'like', "%{$search}%");
                 });
             }
-            
-            $pesanan = $query->latest()->get();
+
+            if ($tanggalDari) {
+                $query->whereDate('tanggal_masuk', '>=', $tanggalDari);
+            }
+
+            if ($tanggalSampai) {
+                $query->whereDate('tanggal_masuk', '<=', $tanggalSampai);
+            }
+
+            $allowedSorts = ['tanggal_masuk', 'total_harga', 'berat', 'status', 'created_at'];
+            if (!in_array($sortBy, $allowedSorts)) {
+                $sortBy = 'tanggal_masuk';
+            }
+            $sortDir = strtolower($sortDir) === 'asc' ? 'asc' : 'desc';
+
+            $pesanan = $query->orderBy($sortBy, $sortDir)->get();
 
             return response()->json([
                 'message' => 'Pesanan retrieved successfully',

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PesananController;
 use App\Http\Controllers\Api\TransaksiController;
+use App\Http\Controllers\Api\LaporanController;
 
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -31,6 +32,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/transaksi/{id}', [TransaksiController::class, 'show']);
     Route::post('/transaksi', [TransaksiController::class, 'store']);
     Route::get('/pesanan/{pesananId}/transaksi', [TransaksiController::class, 'getByPesanan']);
+
+    // Laporan & statistik routes
+    Route::get('/dashboard', [LaporanController::class, 'dashboard']);
+    Route::get('/laporan', [LaporanController::class, 'index']);
 
     // ==========================================
     // Rute yang HANYA BISA diakses oleh ADMIN
